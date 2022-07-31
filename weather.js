@@ -1,0 +1,20 @@
+export const weather_background = {
+  "01d": require('./assets/sunny_day.jpg'),
+  "02d": require('./assets/little_cloudy.jpg'),
+  "03d": require('./assets/little_cloudy.jpg'),
+  "04d": require('./assets/cloudy.jpg'),
+  "09d": require('./assets/rainy.jpg'),
+  "10d": require('./assets/rainy.jpg'),
+  "11d": require('./assets/thunderstorm.jpg'),
+  "13d": require('./assets/snowy.jpg'),
+  "50d": require('./assets/foggy.jpg'),
+  "01n": require('./assets/sunny_night.jpg'),
+  "02n": require('./assets/little_cloudy.jpg'),
+  "03n": require('./assets/little_cloudy.jpg'),
+  "04n": require('./assets/cloudy.jpg'),
+  "09n": require('./assets/rainy.jpg'),
+  "10n": require('./assets/rainy.jpg'),
+  "11n": require('./assets/thunderstorm.jpg'),
+  "13n": require('./assets/snowy.jpg'),
+  "50n": require('./assets/foggy.jpg')
+}

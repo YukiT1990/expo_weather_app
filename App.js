@@ -1,8 +1,9 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, Image } from 'react-native';
+import { StyleSheet, Text, View, Image, ImageBackground } from 'react-native';
 import * as Location from 'expo-location';
 import { key } from './Api_key.js';
+import { weather_background } from './weather.js';
 
 export default function App() {
   const [location, setLocation] = useState(null);
@@ -34,43 +35,33 @@ export default function App() {
         .catch((error) => {
           console.log(error);
         })
-
-      // setLocation(loc);
     })();
   }, []);
 
-  if (errorMsg !== null) {
-    // there's been an error
-    return (
-      <View style={styles.container}>
-        <Text>There's been an error: {errorMsg}</Text>
+  return (
+    <View style={styles.container}>
+      <ImageBackground source={weather_background[location.weather[0].icon]} resizeMode="cover" style={styles.image}>
+        {errorMsg !== null && (
+          <Text>There's been an error: {errorMsg}</Text>
+        )}
+        {errorMsg === null && location !== null && (
+          <>
+            <Text style={styles.top_text}>{location.name}</Text>
+            <Image
+              source={{
+                uri: `https://openweathermap.org/img/wn/${location.weather[0].icon}@2x.png`
+              }}
+              style={{ width: 200, height: 200 }}
+            />
+          </>
+        )}
+        {errorMsg === null && location === null && (
+          <Text>Waiting...</Text>
+        )}
         <StatusBar style="auto" />
-      </View>
-    );
-  } else if (location !== null) {
-    // success
-    return (
-      <View style={styles.container}>
-        {/* <Text>{JSON.stringify(location)}</Text> */}
-        <Text>{location.name}</Text>
-        <Image
-          source={{
-            uri: `https://openweathermap.org/img/wn/${location.weather[0].icon}@2x.png`
-          }}
-          style={{ width: 200, height: 200 }}
-        />
-        <StatusBar style="auto" />
-      </View>
-    );
-  } else {
-    // waiting
-    return (
-      <View style={styles.container}>
-        <Text>Waiting...</Text>
-        <StatusBar style="auto" />
-      </View>
-    );
-  }
+      </ImageBackground>
+    </View>
+  );
 
 }
 
@@ -80,5 +71,17 @@ const styles = StyleSheet.create({
     backgroundColor: '#fff',
     alignItems: 'center',
     justifyContent: 'center',
+
   },
+  image: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: "center",
+    width: "100%"
+  },
+  top_text: {
+    fontWeight: "bold",
+    fontSize: 36,
+    color: 'white',
+  }
 });
